@@ -5,19 +5,21 @@ import "react-simple-keyboard/build/css/index.css";
 const KeyboardWrapper: FC<ComponentProps<typeof Keyboard>> = ({ ...props }) => {
   return (
     <Keyboard
-      {...props}
+      physicalKeyboardHighlight
+      physicalKeyboardHighlightPress
       layoutName="default"
       layout={{
         default: [
           "q w e r t y u i o p",
           "a s d f g h j k l {backspace}",
-          "z x c v b n m {ent}",
+          "z x c v b n m {enter}",
         ],
       }}
       display={{
         "{backspace}": "⌫",
-        "{ent}": "↵",
+        "{enter}": "↵",
       }}
+      {...props}
     />
   );
 };

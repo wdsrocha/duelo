@@ -37,7 +37,7 @@ const Page = (props) => {
     if (key === "{backspace}") {
       const newInput = inputs[currentRow].slice(0, -1);
       setInputs([...inputs.slice(0, -1), newInput]);
-    } else if (key === "{ent}") {
+    } else if (key === "{enter}") {
       if (inputs[currentRow].length !== WORD_SIZE) {
         console.log(`Só palavras com ${WORD_SIZE} letras`);
       } else {
@@ -70,7 +70,7 @@ const Page = (props) => {
       <div>
         <div className="flex justify-center">wdsrocha VS anon1</div>
         <div className="flex">
-          <span>Your Oponent:</span>
+          <span>Seu oponente:</span>
           <div style={{ fontSize: "10px" }}>
             <div className={opponentClassName}>⬛🟨🟩🟨⬛</div>
             <div className={opponentClassName}>🟩🟩🟩⬛🟩</div>
