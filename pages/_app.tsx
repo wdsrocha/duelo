@@ -1,13 +1,14 @@
 import "~/styles/style.scss";
 import React, { useState, useEffect } from "react";
-import Router from "next/router";
 import UserContext from "lib/UserContext";
 import { supabase, fetchUserRoles } from "lib/Store";
+import { Layout } from "../components/Layout";
+import { Session, User } from "@supabase/supabase-js";
 
 export default function SupabaseSlackClone({ Component, pageProps }) {
   const [userLoaded, setUserLoaded] = useState(false);
-  const [user, setUser] = useState(null);
-  const [session, setSession] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [userRoles, setUserRoles] = useState([]);
 
   useEffect(() => {
@@ -17,24 +18,22 @@ export default function SupabaseSlackClone({ Component, pageProps }) {
     setUserLoaded(session ? true : false);
     if (user) {
       signIn();
-      Router.push("/game/[id]", "/game/1");
     }
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      async (_event, session) => {
         setSession(session);
         const currentUser = session?.user;
         setUser(currentUser ?? null);
         setUserLoaded(!!currentUser);
         if (currentUser) {
-          signIn(currentUser.id, currentUser.email);
-          Router.push("/game/[id]", "/game/1");
+          signIn();
         }
       }
     );
 
     return () => {
-      authListener.unsubscribe();
+      authListener?.unsubscribe();
     };
   }, [user]);
 
@@ -45,8 +44,11 @@ export default function SupabaseSlackClone({ Component, pageProps }) {
   };
 
   const signOut = async () => {
-    const result = await supabase.auth.signOut();
-    Router.push("/");
+    try {
+      return await supabase.auth.signOut();
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -57,9 +59,12 @@ export default function SupabaseSlackClone({ Component, pageProps }) {
         userRoles,
         signIn,
         signOut,
+        session,
       }}
     >
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </UserContext.Provider>
   );
 }

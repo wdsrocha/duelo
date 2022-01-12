@@ -1,26 +1,14 @@
-import Layout from "~/components/Layout";
-import Message from "~/components/Message";
-import MessageInput from "~/components/MessageInput";
 import KeyboardWrapper from "../../components/KeyboardWrapper";
-import { useRouter } from "next/router";
-import { useStore, addMessage } from "~/lib/Store";
-import {
-  MutableRefObject,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useStore } from "~/lib/Store";
+import { useContext, useRef, useState } from "react";
 import UserContext from "~/lib/UserContext";
-import Link from "next/link";
 import Keyboard from "react-simple-keyboard/build/components/Keyboard";
 
 const WORD_SIZE = 5;
 const NUMBER_OF_ATTEMPTS = 6;
 
 const Page = (props) => {
-  // const router = useRouter();
-  // const { user, authLoaded, signOut } = useContext(UserContext);
+  const { user, authLoaded, signOut } = useContext(UserContext);
 
   const keyboardRef = useRef<typeof Keyboard>(null);
 
@@ -68,7 +56,7 @@ const Page = (props) => {
         <span>Configuração</span>
       </header>
       <div>
-        <div className="flex justify-center">wdsrocha VS anon1</div>
+        <div className="flex justify-center">{`${user?.email} VS `}</div>
         <div className="flex">
           <span>Seu oponente:</span>
           <div style={{ fontSize: "10px" }}>

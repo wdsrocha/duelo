@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { supabase } from "lib/Store";
+import { useRouter } from "next/router";
 
 const Home = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
-  const handleLogin = async (type, username, password) => {
+  const handleLogin = async (
+    type: string,
+    username: string,
+    password: string
+  ) => {
     try {
       const { error, user } =
         type === "LOGIN"
@@ -15,12 +21,17 @@ const Home = () => {
       // that must mean that a confirmation email has been sent.
       // NOTE: Confirming your email address is required by default.
       if (error) {
-        alert("Error with auth: " + error.message);
-      } else if (!user)
-        alert("Signup successful, confirmation mail should be sent soon!");
-    } catch (error) {
+        alert("Erro: " + error.message);
+      } else if (!user) {
+        alert(
+          "Conta criada com sucesso, um email de confirmação será enviado em breve!"
+        );
+      } else if (user) {
+        router.push("/menu");
+      }
+    } catch (error: any) {
       console.log("error", error);
-      alert(error.error_description || error);
+      alert(error.error_description ?? error);
     }
   };
 
@@ -35,19 +46,19 @@ const Home = () => {
             <input
               type="text"
               className="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow"
-              placeholder="Your Username"
+              placeholder="fulano@gmail.com"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="mb-4">
             <label className="font-bold text-grey-darker block mb-2">
-              Password
+              Senha
             </label>
             <input
               type="password"
               className="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow"
-              placeholder="Your password"
+              placeholder="123456"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -62,7 +73,7 @@ const Home = () => {
               href={"/channels"}
               className="bg-indigo-700 hover:bg-teal text-white py-2 px-4 rounded text-center transition duration-150 hover:bg-indigo-600 hover:text-white"
             >
-              Sign up
+              Criar conta
             </a>
             <a
               onClick={(e) => {
@@ -72,7 +83,7 @@ const Home = () => {
               href={"/channels"}
               className="border border-indigo-700 text-indigo-700 py-2 px-4 rounded w-full text-center transition duration-150 hover:bg-indigo-700 hover:text-white"
             >
-              Login
+              Entrar
             </a>
           </div>
         </div>
