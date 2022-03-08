@@ -2,6 +2,12 @@
 @import "~tailwindcss/dist/components.css";
 @import "~tailwindcss/dist/utilities.css";
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body,
 #__next,

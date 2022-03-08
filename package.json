@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "license": "MIT",
   "scripts": {
+    "generate-types": "npx openapi-typescript https://nwkedscqntpjkcqlfkkw.supabase.co/rest/v1/?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MjAyNzgxOCwiZXhwIjoxOTU3NjAzODE4fQ._u61M22nOq4lUAQOUBNQRHBDCe2oSiv_uX3YNCHzBHs --output types/supabase.d.ts",
     "dev": "next",
     "export": "next export",
     "test": "jest",
@@ -11,10 +12,15 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.1.2",
+    "@supabase/ui": "^0.36.2",
     "next": "latest",
     "react": "^16.7.0",
+    "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^16.7.0",
+    "react-query": "^3.34.11",
+    "react-simple-keyboard": "^3.4.31",
     "sass": "^1.26.2",
+    "swr": "^1.1.2",
     "tailwindcss": "^1.1.4"
   },
   "devDependencies": {
@@ -22,7 +28,6 @@
     "@testing-library/react": "^12.1.2",
     "@types/react": "^17.0.38",
     "jest": "^27.4.7",
-    "react-simple-keyboard": "^3.4.31",
     "typescript": "^4.5.4"
   }
 }

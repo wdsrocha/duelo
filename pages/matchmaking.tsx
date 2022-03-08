@@ -16,13 +16,16 @@ const Page = () => {
     }
 
     (async () => {
-      const [result] = await startMatchmaking(user.id);
+      const results = await startMatchmaking(user.id);
+      console.log({ results });
 
-      if (result.player1 && result.player2) {
-        router.push(`/game/${result.id}`);
+      const result = results?.[0];
+
+      if (result?.player1 && result?.player2) {
+        router.push(`/game/${result?.id}`);
       }
 
-      setMatchId(result.id);
+      setMatchId(result?.id);
     })();
 
     return;
@@ -41,7 +44,7 @@ const Page = () => {
   return (
     <div className="flex flex-col flex-grow justify-center items-center">
       <div>Procurando partida...</div>
-      <Link href="/menu">
+      <Link href="/">
         <a onClick={() => cancelMatchmaking(matchId)}>Cancelar</a>
       </Link>
     </div>

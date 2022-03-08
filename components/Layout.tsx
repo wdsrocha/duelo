@@ -1,17 +1,18 @@
-import { FC, useContext } from "react";
-import UserContext from "~/lib/UserContext";
+import { Auth } from "../components/Auth";
+import { FC } from "react";
 
 export const Layout: FC = ({ children }) => {
-  const { signOut, user, userRoles } = useContext(UserContext);
+  // const { user, session } = Auth.useUser();
 
   return (
     <div className="mx-auto max-w-3xl flex flex-col h-screen pt-3 px-4">
-      <header className="flex">
+      {/* <header className="flex justify-between">
         <span className="flex-1">Worlde Arena</span>
         <span>Perfil</span>
         <span>Configuração</span>
-      </header>
-      <main className="flex flex-grow">{children}</main>
+      </header> */}
+      {/* <span>{JSON.stringify(user, null, 2)}</span> */}
+      <main className=" flex flex-col flex-grow">{children}</main>
     </div>
   );
 };

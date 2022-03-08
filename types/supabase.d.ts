@@ -12,20 +12,111 @@ export interface paths {
       };
     };
   };
+  "/boards": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.boards.id"];
+          playerId?: parameters["rowFilter.boards.playerId"];
+          guesses?: parameters["rowFilter.boards.guesses"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["boards"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** boards */
+          boards?: definitions["boards"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.boards.id"];
+          playerId?: parameters["rowFilter.boards.playerId"];
+          guesses?: parameters["rowFilter.boards.guesses"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.boards.id"];
+          playerId?: parameters["rowFilter.boards.playerId"];
+          guesses?: parameters["rowFilter.boards.guesses"];
+        };
+        body: {
+          /** boards */
+          boards?: definitions["boards"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
   "/matches": {
     get: {
       parameters: {
         query: {
           id?: parameters["rowFilter.matches.id"];
           createdAt?: parameters["rowFilter.matches.createdAt"];
-          player1?: parameters["rowFilter.matches.player1"];
-          player2?: parameters["rowFilter.matches.player2"];
-          player1Guesses?: parameters["rowFilter.matches.player1Guesses"];
-          player2Guesses?: parameters["rowFilter.matches.player2Guesses"];
           answer?: parameters["rowFilter.matches.answer"];
           startTime?: parameters["rowFilter.matches.startTime"];
           endTime?: parameters["rowFilter.matches.endTime"];
-          winner?: parameters["rowFilter.matches.winner"];
+          winnerId?: parameters["rowFilter.matches.winnerId"];
+          board1Id?: parameters["rowFilter.matches.board1Id"];
+          board2Id?: parameters["rowFilter.matches.board2Id"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -78,14 +169,12 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.matches.id"];
           createdAt?: parameters["rowFilter.matches.createdAt"];
-          player1?: parameters["rowFilter.matches.player1"];
-          player2?: parameters["rowFilter.matches.player2"];
-          player1Guesses?: parameters["rowFilter.matches.player1Guesses"];
-          player2Guesses?: parameters["rowFilter.matches.player2Guesses"];
           answer?: parameters["rowFilter.matches.answer"];
           startTime?: parameters["rowFilter.matches.startTime"];
           endTime?: parameters["rowFilter.matches.endTime"];
-          winner?: parameters["rowFilter.matches.winner"];
+          winnerId?: parameters["rowFilter.matches.winnerId"];
+          board1Id?: parameters["rowFilter.matches.board1Id"];
+          board2Id?: parameters["rowFilter.matches.board2Id"];
         };
         header: {
           /** Preference */
@@ -102,14 +191,12 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.matches.id"];
           createdAt?: parameters["rowFilter.matches.createdAt"];
-          player1?: parameters["rowFilter.matches.player1"];
-          player2?: parameters["rowFilter.matches.player2"];
-          player1Guesses?: parameters["rowFilter.matches.player1Guesses"];
-          player2Guesses?: parameters["rowFilter.matches.player2Guesses"];
           answer?: parameters["rowFilter.matches.answer"];
           startTime?: parameters["rowFilter.matches.startTime"];
           endTime?: parameters["rowFilter.matches.endTime"];
-          winner?: parameters["rowFilter.matches.winner"];
+          winnerId?: parameters["rowFilter.matches.winnerId"];
+          board1Id?: parameters["rowFilter.matches.board1Id"];
+          board2Id?: parameters["rowFilter.matches.board2Id"];
         };
         body: {
           /** matches */
@@ -450,6 +537,22 @@ export interface paths {
 }
 
 export interface definitions {
+  boards: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
+     */
+    playerId: string;
+    /** Format: ARRAY */
+    guesses?: string[];
+  };
   matches: {
     /**
      * Format: uuid
@@ -463,18 +566,6 @@ export interface definitions {
      * @default now()
      */
     createdAt: string;
-    /**
-     * Format: uuid
-     * @description Note:
-     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
-     */
-    player1: string;
-    /** Format: uuid */
-    player2?: string;
-    /** Format: ARRAY */
-    player1Guesses?: string[];
-    /** Format: ARRAY */
-    player2Guesses?: string[];
     /** Format: text */
     answer: string;
     /** Format: timestamp without time zone */
@@ -486,7 +577,19 @@ export interface definitions {
      * @description Note:
      * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
      */
-    winner?: string;
+    winnerId?: string;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `boards.id`.<fk table='boards' column='id'/>
+     */
+    board1Id?: number;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `boards.id`.<fk table='boards' column='id'/>
+     */
+    board2Id?: number;
   };
   /** @description Application permissions for each role. */
   role_permissions: {
@@ -581,20 +684,20 @@ export interface parameters {
   offset: string;
   /** @description Limiting and Pagination */
   limit: string;
+  /** @description boards */
+  "body.boards": definitions["boards"];
+  /** Format: bigint */
+  "rowFilter.boards.id": string;
+  /** Format: uuid */
+  "rowFilter.boards.playerId": string;
+  /** Format: ARRAY */
+  "rowFilter.boards.guesses": string;
   /** @description matches */
   "body.matches": definitions["matches"];
   /** Format: uuid */
   "rowFilter.matches.id": string;
   /** Format: timestamp without time zone */
   "rowFilter.matches.createdAt": string;
-  /** Format: uuid */
-  "rowFilter.matches.player1": string;
-  /** Format: uuid */
-  "rowFilter.matches.player2": string;
-  /** Format: ARRAY */
-  "rowFilter.matches.player1Guesses": string;
-  /** Format: ARRAY */
-  "rowFilter.matches.player2Guesses": string;
   /** Format: text */
   "rowFilter.matches.answer": string;
   /** Format: timestamp without time zone */
@@ -602,7 +705,11 @@ export interface parameters {
   /** Format: timestamp without time zone */
   "rowFilter.matches.endTime": string;
   /** Format: uuid */
-  "rowFilter.matches.winner": string;
+  "rowFilter.matches.winnerId": string;
+  /** Format: bigint */
+  "rowFilter.matches.board1Id": string;
+  /** Format: bigint */
+  "rowFilter.matches.board2Id": string;
   /** @description role_permissions */
   "body.role_permissions": definitions["role_permissions"];
   /** Format: bigint */
