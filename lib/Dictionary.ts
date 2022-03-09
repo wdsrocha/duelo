@@ -14357,7 +14357,7 @@ for (const possibleAnswer of possibleAnswers) {
   validWords.add(possibleAnswer);
 }
 
-export const isWordValid = (word: string) =>
+export const isValidWord = (word: string) =>
   validWords.has(word) || normalizedToOriginal[word];
 
 export const getRandomAnswer = () =>

@@ -54,7 +54,7 @@ const Page = () => {
 
   console.log({ match, isLoading, errorMessage });
 
-  const keyboardRef = useRef<typeof Keyboard>(null);
+  const keyboardRef = useRef<typeof Keyboard | null>(null);
 
   const [gameOver, setGameOver] = useState(false);
   const [inputs, setInputs] = useState([""]);
