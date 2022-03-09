@@ -18,7 +18,7 @@ const Cell = ({ value, verdict }: { value?: string; verdict?: Verdict }) => {
   });
   return (
     <div
-      className={`w-8 h-8 border-solid border-2 rounded ml-1 text-lg font-bold uppercase flex items-center justify-center ${classes}`}
+      className={`w-12 h-12 text-3xl border-solid border-2 rounded ml-1 font-extrabold uppercase flex items-center justify-center ${classes}`}
     >
       {value}
     </div>
