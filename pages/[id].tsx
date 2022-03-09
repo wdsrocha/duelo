@@ -38,12 +38,11 @@ const EmptyRow = () => {
 };
 
 const CurrentRow = ({ guess }: { guess: string }) => {
-  const splitGuess = guess.split("");
-  const emptyCells = Array.from(Array(5 - splitGuess.length));
+  const emptyCells = Array.from(Array(5 - guess.length));
 
   return (
     <div className="flex justify-center mb-1">
-      {splitGuess.map((letter, i) => (
+      {guess.split("").map((letter, i) => (
         <Cell key={i} value={letter} />
       ))}
       {emptyCells.map((_, i) => (
