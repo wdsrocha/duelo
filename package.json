@@ -7,10 +7,13 @@
     "dev": "next",
     "export": "next export",
     "test": "jest",
+    "lint": "next lint",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@radix-ui/react-alert-dialog": "^0.1.7",
+    "@radix-ui/react-dialog": "^0.1.7",
     "@supabase/supabase-js": "^1.1.2",
     "@supabase/ui": "^0.36.2",
     "autoprefixer": "^10.4.2",
@@ -32,7 +35,12 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@types/react": "^17.0.38",
+    "eslint": "8.10.0",
+    "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "^8.5.0",
     "jest": "^27.4.7",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.8",
     "typescript": "^4.5.4"
   }
 }
