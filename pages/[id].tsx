@@ -2,7 +2,7 @@ import { Board } from "../components/board/Board";
 import {} from "./../components/board/Row";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import Keyboard from "react-simple-keyboard/build/components/Keyboard";
+import { Keyboard } from "../components/keyboard/Keyboard";
 import KeyboardWrapper from "../components/KeyboardWrapper";
 import { GameOverDialog } from "../components/GameOverDialog";
 import { useRouter } from "next/router";
@@ -34,7 +34,25 @@ function Page() {
     setIsGameOverDialogOpen(gameOver);
   }, [gameOver]);
 
-  const data = { guesses, currentGuess, gameOver, solution };
+  const getVerdictByUsedLetter = (guesses: string[], solution: string) => {
+    const verdictByLetter: Record<string, Verdict> = {};
+
+    guesses.forEach((guess) => {
+      guess.split("").forEach((letter, i) => {
+        if (!solution.includes(letter)) {
+          verdictByLetter[letter] = "absent";
+        } else if (letter === solution[i]) {
+          verdictByLetter[letter] = "correct";
+        } else if (verdictByLetter[letter] !== "correct") {
+          verdictByLetter[letter] = "present";
+        }
+      });
+    });
+
+    return verdictByLetter;
+  };
+
+  const verdictByUsedLetter = getVerdictByUsedLetter(guesses, solution);
 
   const keyboardRef = useRef<typeof Keyboard | null>(null);
 
@@ -97,28 +115,19 @@ function Page() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl py-8 sm:px-6 lg:px-8">
-      <header>
+    <div className="mx-auto flex min-h-full max-w-7xl flex-col items-center justify-between bg-slate-100">
+      <header className="mt-2 text-3xl font-extrabold">
         <Link href="/">
-          <a>Nome do Jogo Aqui </a>
+          <a>TERMONLINE</a>
         </Link>
         <span></span>
       </header>
-      <main className="">
-        <div>
-          <Board
-            guesses={guesses}
-            currentGuess={currentGuess}
-            solution={solution}
-          />
-        </div>
-        <KeyboardWrapper
-          onKeyPress={onKeyPress}
-          keyboardRef={(ref) => (keyboardRef.current = ref)}
-          newLineOnEnter
-          physicalKeyboardHighlight={!gameOver}
+      <main>
+        <Board
+          guesses={guesses}
+          currentGuess={currentGuess}
+          solution={solution}
         />
-        {/* {JSON.stringify(data, null, 2)} */}
         <GameOverDialog
           won={isVictory()}
           open={isGameOverDialogOpen}
@@ -128,6 +137,13 @@ function Page() {
           getShareText={getShareText}
         />
       </main>
+      <footer className="px-2 pb-2">
+        <Keyboard
+          guesses={guesses}
+          solution={solution}
+          onKeyPress={onKeyPress}
+        />
+      </footer>
     </div>
   );
 }
