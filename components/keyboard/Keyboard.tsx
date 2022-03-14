@@ -56,8 +56,8 @@ export const Keyboard = ({
   }, [onKeyPress]);
 
   return (
-    <div>
-      <div className="justify-left mb-1 flex">
+    <div className="mx-auto w-full">
+      <div className="justify-left mb-1 flex w-full pr-4">
         <Key value="q" onClick={onClick} verdict={verdictByLetter["q"]} />
         <Key value="w" onClick={onClick} verdict={verdictByLetter["w"]} />
         <Key value="e" onClick={onClick} verdict={verdictByLetter["e"]} />
@@ -70,7 +70,7 @@ export const Keyboard = ({
         <Key value="p" onClick={onClick} verdict={verdictByLetter["p"]} />
       </div>
       <div className="justify-left mb-1 flex">
-        <div className="justify-left flex pl-4">
+        <div className="justify-left flex w-full pl-4">
           <Key value="a" onClick={onClick} verdict={verdictByLetter["a"]} />
           <Key value="s" onClick={onClick} verdict={verdictByLetter["s"]} />
           <Key value="d" onClick={onClick} verdict={verdictByLetter["d"]} />
@@ -86,7 +86,7 @@ export const Keyboard = ({
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="justify-left flex pl-8">
+        <div className="justify-left flex w-full pl-8">
           <Key value="z" onClick={onClick} verdict={verdictByLetter["z"]} />
           <Key value="x" onClick={onClick} verdict={verdictByLetter["x"]} />
           <Key value="c" onClick={onClick} verdict={verdictByLetter["c"]} />
@@ -95,9 +95,11 @@ export const Keyboard = ({
           <Key value="n" onClick={onClick} verdict={verdictByLetter["n"]} />
           <Key value="m" onClick={onClick} verdict={verdictByLetter["m"]} />
         </div>
-        <Key value="{enter}" onClick={onClick}>
-          ENTER
-        </Key>
+        <div className="ml-5 w-32">
+          <Key value="{enter}" onClick={onClick}>
+            ENTER
+          </Key>
+        </div>
       </div>
     </div>
   );

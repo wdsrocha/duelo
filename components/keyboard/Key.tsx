@@ -48,8 +48,6 @@ export const Key = ({
   className,
 }: Props) => {
   const classes = classnames({
-    "w-full": value === "{enter}",
-    "w-7 sm:w-10": value !== "{enter}",
     "bg-slate-200 hover:bg-slate-300 active:bg-slate-400": !verdict,
     "bg-slate-400 text-white": verdict === "absent",
     "bg-green-500 hover:bg-green-600 active:bg-green-700 text-white":
@@ -65,7 +63,7 @@ export const Key = ({
 
   return (
     <button
-      className={`mx-0.5 flex h-14 cursor-pointer select-none items-center justify-center rounded text-xs font-bold uppercase sm:text-lg ${classes} ${className} `}
+      className={`mx-0.5 flex h-14 w-full cursor-pointer select-none items-center justify-center rounded text-xl font-bold uppercase ${classes} ${className} `}
       onClick={handleClick}
     >
       {children || value}

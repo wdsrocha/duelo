@@ -94,6 +94,10 @@ function Page() {
     guesses.length ? isEqual(guesses[guesses.length - 1], solution) : false;
 
   const getShareText = () => {
+    const message = isVictory()
+      ? `Acertei a palavra ${solution} (${guesses.length}/6) em pvp.wesley.works`
+      : `Errei a palavra ${solution} em pvp.wesley.works`;
+
     const sharableBoard = guesses
       .map((guess) =>
         getGuessVerdicts(guess, solution)
@@ -109,43 +113,48 @@ function Page() {
       )
       .join("\n");
 
-    return `${isVictory() ? "Acertei" : "Errei"} a palavra "${solution}" (${
-      guesses.length
-    }/6) em pvp.wesley.works\n\n${sharableBoard}`;
+    return `${message}\n\n${sharableBoard}`;
   };
 
   return (
-    <div className="mx-auto flex min-h-full max-w-7xl flex-col items-center justify-between bg-slate-100">
-      <header className="mt-2 text-3xl font-extrabold">
-        <Link href="/">
-          <a>TERMONLINE</a>
-        </Link>
-        <span></span>
-      </header>
-      <main>
-        <Board
-          guesses={guesses}
-          currentGuess={currentGuess}
-          solution={solution}
-        />
-        <GameOverDialog
-          won={isVictory()}
-          open={isGameOverDialogOpen}
-          onOpenChange={setIsGameOverDialogOpen}
-          onPlayAgain={router.reload}
-          solution={solution}
-          getShareText={getShareText}
-        />
-      </main>
-      <footer className="px-2 pb-2">
-        <Keyboard
-          guesses={guesses}
-          solution={solution}
-          onKeyPress={onKeyPress}
-        />
-      </footer>
+    <div className="flex min-h-full min-w-full bg-slate-100">
+      <div className="mx-auto flex min-h-full max-w-xl grow flex-col items-center justify-between">
+        <header className="mt-2 text-3xl font-extrabold">
+          <Link href="/">
+            <a>TERMONLINE</a>
+          </Link>
+          <span></span>
+        </header>
+        <main>
+          <Board
+            guesses={guesses}
+            currentGuess={currentGuess}
+            solution={solution}
+          />
+          <GameOverDialog
+            won={isVictory()}
+            open={isGameOverDialogOpen}
+            onOpenChange={setIsGameOverDialogOpen}
+            onPlayAgain={router.reload}
+            solution={solution}
+            getShareText={getShareText}
+          />
+        </main>
+        <footer className="w-full px-2 pb-2">
+          <Keyboard
+            guesses={guesses}
+            solution={solution}
+            onKeyPress={onKeyPress}
+          />
+        </footer>
+      </div>
     </div>
   );
 }
 
 export default Page;
+
+// tworm.ooo
+// doism.ooo
+// dueto
+// termo
