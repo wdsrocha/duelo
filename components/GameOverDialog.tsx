@@ -3,14 +3,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export const Content = ({ children, ...props }) => (
   <Primitive.Portal>
-    <Primitive.Overlay className="fixed inset-0 bg-black opacity-30" />
-    {/* <Primitive.Overlay /> */}
-    <Primitive.Content
-      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-4 focus:outline-none"
-      // {...props}
-    >
-      {children}
-    </Primitive.Content>
+    <Primitive.Overlay {...props} />
+    <Primitive.Content>{children}</Primitive.Content>
   </Primitive.Portal>
 );
 
@@ -31,7 +25,7 @@ export const GameOverDialog = ({
 }) => {
   return (
     <Primitive.Root open={open} onOpenChange={onOpenChange}>
-      <Content>
+      <Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-4 focus:outline-none">
         <Primitive.Title>
           Você {won ? "Venceu! 🎉" : "Perdeu. 💀"}
         </Primitive.Title>
@@ -39,10 +33,7 @@ export const GameOverDialog = ({
           A palavra era <b>{solution}</b>.
         </Primitive.Description>
 
-        <CopyToClipboard
-          text={getShareText()}
-          // onCopy={() => {}}
-        >
+        <CopyToClipboard text={getShareText()}>
           <button>Compartilhar</button>
         </CopyToClipboard>
         <Primitive.AlertDialogAction asChild>

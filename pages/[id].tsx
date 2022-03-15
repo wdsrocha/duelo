@@ -1,9 +1,8 @@
 import { Board } from "../components/board/Board";
 import {} from "./../components/board/Row";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Keyboard } from "../components/keyboard/Keyboard";
-import KeyboardWrapper from "../components/KeyboardWrapper";
 import { GameOverDialog } from "../components/GameOverDialog";
 import { useRouter } from "next/router";
 import {
@@ -11,7 +10,6 @@ import {
   getRandomSolution,
   isEqual,
   isValidWord,
-  Verdict,
 } from "../lib/utils";
 import Link from "next/link";
 
@@ -33,28 +31,6 @@ function Page() {
   useEffect(() => {
     setIsGameOverDialogOpen(gameOver);
   }, [gameOver]);
-
-  const getVerdictByUsedLetter = (guesses: string[], solution: string) => {
-    const verdictByLetter: Record<string, Verdict> = {};
-
-    guesses.forEach((guess) => {
-      guess.split("").forEach((letter, i) => {
-        if (!solution.includes(letter)) {
-          verdictByLetter[letter] = "absent";
-        } else if (letter === solution[i]) {
-          verdictByLetter[letter] = "correct";
-        } else if (verdictByLetter[letter] !== "correct") {
-          verdictByLetter[letter] = "present";
-        }
-      });
-    });
-
-    return verdictByLetter;
-  };
-
-  const verdictByUsedLetter = getVerdictByUsedLetter(guesses, solution);
-
-  const keyboardRef = useRef<typeof Keyboard | null>(null);
 
   const onKeyPress = async (key: string) => {
     if (gameOver) {
