@@ -12,6 +12,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@radix-ui/react-accessible-icon": "^0.1.4",
     "@radix-ui/react-alert-dialog": "^0.1.7",
     "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-portal": "^0.1.4",
@@ -25,6 +26,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-hot-toast": "^2.2.0",
+    "react-icons": "^4.3.1",
     "react-query": "^3.34.11",
     "sass": "^1.26.2",
     "swr": "^1.1.2",

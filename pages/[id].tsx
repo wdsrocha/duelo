@@ -12,6 +12,8 @@ import {
   isValidWord,
 } from "../lib/utils";
 import Link from "next/link";
+import { FaInfo } from "react-icons/fa";
+import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 
 function Page() {
   const [solution, setSolution] = useState("");
@@ -99,11 +101,19 @@ function Page() {
   return (
     <div className="flex min-h-full min-w-full bg-slate-100">
       <div className="mx-auto flex min-h-full max-w-xl grow flex-col items-center justify-between">
-        <header className="mt-2 text-3xl font-extrabold">
-          <Link href="/">
-            <a>TERMONLINE</a>
-          </Link>
-          <span></span>
+        <header className="mt-2 w-full px-2 text-3xl font-extrabold">
+          <div className="flex items-center justify-between">
+            <Link href="/">
+              <a>DUEL.OOO</a>
+            </Link>
+            <div>
+              <button className="flex items-center justify-center rounded bg-slate-200 p-2 text-xl hover:bg-slate-300 active:bg-slate-400">
+                <AccessibleIcon label="Informação">
+                  <FaInfo />
+                </AccessibleIcon>
+              </button>
+            </div>
+          </div>
         </header>
         <main className="w-full max-w-md  px-12">
           <Board
