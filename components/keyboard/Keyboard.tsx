@@ -49,9 +49,9 @@ export const Keyboard = ({
         onKeyPress(e.key);
       }
     };
-    window.addEventListener("keyup", listener);
+    window.addEventListener("keydown", listener);
     return () => {
-      window.removeEventListener("keyup", listener);
+      window.removeEventListener("keydown", listener);
     };
   }, [onKeyPress]);
 

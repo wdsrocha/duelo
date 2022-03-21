@@ -25,7 +25,11 @@ function Page() {
   const router = useRouter();
 
   useEffect(() => {
-    setSolution(getRandomSolution());
+    const randomSolution = getRandomSolution();
+    if (process?.env?.NODE_ENV === "development") {
+      console.log({ randomSolution });
+    }
+    setSolution(randomSolution);
   }, []);
 
   useEffect(() => {
