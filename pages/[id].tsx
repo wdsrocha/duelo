@@ -100,7 +100,7 @@ function Page() {
 
   return (
     <Layout>
-      <main className="w-full max-w-md  px-12">
+      <main className="w-full max-w-md px-12">
         <Board
           guesses={guesses}
           currentGuess={currentGuess}
