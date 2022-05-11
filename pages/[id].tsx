@@ -13,6 +13,7 @@ import {
 } from "../lib/utils";
 import Link from "next/link";
 import { InfoDialog } from "../components/InfoDialog";
+import { Layout } from "../components/Layout";
 
 function Page() {
   const [solution, setSolution] = useState("");
@@ -98,42 +99,30 @@ function Page() {
   };
 
   return (
-    <div className="flex min-h-full min-w-full bg-slate-100">
-      <div className="mx-auto flex min-h-full max-w-xl grow flex-col items-center justify-between">
-        <header className="mt-2 w-full px-2 text-3xl font-extrabold">
-          <div className="flex items-center justify-between">
-            <Link href="/">
-              <a>DUELO</a>
-            </Link>
-            <div>
-              <InfoDialog />
-            </div>
-          </div>
-        </header>
-        <main className="w-full max-w-md  px-12">
-          <Board
-            guesses={guesses}
-            currentGuess={currentGuess}
-            solution={solution}
-          />
-          <GameOverDialog
-            won={isVictory()}
-            open={isGameOverDialogOpen}
-            onOpenChange={setIsGameOverDialogOpen}
-            onPlayAgain={router.reload}
-            solution={solution}
-            getShareText={getShareText}
-          />
-        </main>
-        <footer className="w-full px-2 pb-2">
-          <Keyboard
-            guesses={guesses}
-            solution={solution}
-            onKeyPress={onKeyPress}
-          />
-        </footer>
-      </div>
-    </div>
+    <Layout>
+      <main className="w-full max-w-md  px-12">
+        <Board
+          guesses={guesses}
+          currentGuess={currentGuess}
+          solution={solution}
+        />
+      </main>
+      <footer className="w-full px-2 pb-2">
+        <Keyboard
+          guesses={guesses}
+          solution={solution}
+          onKeyPress={onKeyPress}
+        />
+      </footer>
+      <GameOverDialog
+        won={isVictory()}
+        open={isGameOverDialogOpen}
+        onOpenChange={setIsGameOverDialogOpen}
+        onPlayAgain={router.reload}
+        solution={solution}
+        getShareText={getShareText}
+      />
+    </Layout>
   );
 }
 
