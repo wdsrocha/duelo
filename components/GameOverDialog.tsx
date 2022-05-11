@@ -1,5 +1,5 @@
 import * as Primitive from "@radix-ui/react-alert-dialog";
-import classNames from "classnames";
+import { Button } from "../components/Button";
 import toast from "react-hot-toast";
 import { FaShare } from "react-icons/fa";
 
@@ -8,18 +8,6 @@ export const Content = ({ children, ...props }) => (
     <Primitive.Overlay className="fixed inset-0 bg-black opacity-30" />
     <Primitive.Content {...props}>{children}</Primitive.Content>
   </Primitive.Portal>
-);
-
-const Button = ({ children, className = "", ...props }) => (
-  <button
-    {...props}
-    className={classNames(
-      className,
-      "flex h-14 w-56 items-center justify-center rounded-md border bg-green-600 px-4 py-2 text-lg font-bold uppercase text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-    )}
-  >
-    {children}
-  </button>
 );
 
 export const GameOverDialog = ({
