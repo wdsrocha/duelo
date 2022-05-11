@@ -24,15 +24,9 @@ type Props = {
   onKeyPress: (value: string) => void;
   guesses: string[];
   solution: string;
-  className?: string;
 };
 
-export const Keyboard = ({
-  onKeyPress,
-  guesses,
-  solution,
-  className,
-}: Props) => {
+export const Keyboard = ({ onKeyPress, guesses, solution }: Props) => {
   const verdictByLetter = getVerdictByLetter(guesses, solution);
 
   const onClick = (value: KeyValue) => {
