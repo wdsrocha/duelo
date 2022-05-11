@@ -1,19 +1,17 @@
-import { Board } from "../components/board/Board";
-import {} from "./../components/board/Row";
+import { Board } from "../../components/board/Board";
+import {} from "../../components/board/Row";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Keyboard } from "../components/keyboard/Keyboard";
-import { GameOverDialog } from "../components/GameOverDialog";
+import { Keyboard } from "../../components/keyboard/Keyboard";
+import { GameOverDialog } from "../../components/GameOverDialog";
 import { useRouter } from "next/router";
 import {
   getGuessVerdicts,
   getRandomSolution,
   isEqual,
   isValidWord,
-} from "../lib/utils";
-import Link from "next/link";
-import { InfoDialog } from "../components/InfoDialog";
-import { Layout } from "../components/Layout";
+} from "../../lib/utils";
+import { Layout } from "../../components/Layout";
 
 function Page() {
   const [solution, setSolution] = useState("");
@@ -127,8 +125,3 @@ function Page() {
 }
 
 export default Page;
-
-// tworm.ooo
-// doism.ooo
-// dueto
-// termo
