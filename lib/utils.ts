@@ -27,7 +27,9 @@ export const getGuessVerdicts = (
   for (let i = 0; i < 5; i++) {
     if (
       !isEqual(guess[i], solution[i]) &&
-      incorrectLetters.includes(guess[i])
+      incorrectLetters
+        .split("")
+        .some((solutionLetter) => isEqual(guess[i], solutionLetter))
     ) {
       incorrectLetters = incorrectLetters.replace(guess[i], "");
       verdicts[i] = "present";
@@ -49,6 +51,7 @@ export const getGuessVerdicts = (
   3 | tapas | patas    | 12122  | 
   4 | saara | patas    | 12100  | when the same word is both correct and present at the same time
   5 | patas | patas    | 22222  | when the puzzle is solved
+  6 | penas | harém    | 01010  | when there is a present guess with different accent
 
   */
 };
