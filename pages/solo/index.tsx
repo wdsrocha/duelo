@@ -75,8 +75,8 @@ function Page() {
 
   const getShareText = () => {
     const message = isVictory()
-      ? `Acertei a palavra ${solution} (${guesses.length}/6) em pvp.wesley.works`
-      : `Errei a palavra ${solution} em pvp.wesley.works`;
+      ? `Acertei a palavra "${solution}" (${guesses.length}/6) em duelo.wesley.works`
+      : `Errei a palavra "${solution}" em duelo.wesley.works`;
 
     const sharableBoard = guesses
       .map((guess) =>
