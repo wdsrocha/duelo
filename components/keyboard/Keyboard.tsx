@@ -1,20 +1,32 @@
 import { Key, KeyValue } from "./Key";
 import { useEffect } from "react";
-import { Verdict } from "../../lib/utils";
+import { Verdict, getGuessVerdicts } from "../../lib/utils";
 
 const getVerdictByLetter = (guesses: string[], solution: string) => {
-  const obj: Record<Verdict, string> = { absent: "", correct: "", present: "" };
+  const obj: Record<string, Verdict> = {};
 
   guesses.forEach((guess) => {
-    guess.split("").forEach((letter, i) => {
-      if (!solution.includes(letter)) {
-        obj[letter] = "absent";
-      } else if (letter === solution[i]) {
-        obj[letter] = "correct";
-      } else if (obj[letter] !== "correct") {
-        obj[letter] = "present";
+    const verdicts = getGuessVerdicts(guess, solution);
+    for (let i = 0; i < guess.length; i++) {
+      const c = guess[i];
+      const v = verdicts[i];
+
+      if (!(c in obj)) {
+        obj[c] = v;
       }
-    });
+
+      if (v === "correct") {
+        obj[c] = "correct";
+      } else if (v === "present" && obj[c] !== "correct") {
+        obj[c] = "present";
+      } else if (
+        v === "absent" &&
+        obj[c] !== "correct" &&
+        obj[c] !== "present"
+      ) {
+        obj[c] = "absent";
+      }
+    }
   });
 
   return obj;
